@@ -5,9 +5,9 @@ const validator = require('validator')
 
 const getNotes = require('./notes.js')
 
-const allNotes = getNotes ('This is a ', 'Test')
+const allNotes = getNotes ('This is a ', 'Text')
 
-console.log(chalk.green.bold.inverse(allNotes))
+console.log(chalk.blue.bold.inverse(allNotes))
 
 
 
