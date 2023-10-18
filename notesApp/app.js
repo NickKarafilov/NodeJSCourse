@@ -1,7 +1,7 @@
 const chalk = require('chalk')
 const yargs = require('yargs')
 const validator = require('validator')
-const getNotes = require('./notes.js')
+const notes = require('./notes.js')
 
 // Customize yargs version
 yargs.version('1.1.0')
@@ -11,8 +11,22 @@ yargs.version('1.1.0')
 yargs.command({
     command: 'add',
     describe: 'Add a new note',
-    handler: function () {
-        console.log('Adding a new note')
+    builder:{
+        title:{
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        },
+        body:{
+            desribe: 'Body',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+       notes.addNote(argv.title, argv.body)
+        // console.log('Title: ' + argv.title)
+        // console.log('Author: ' + argv.author)
     }
 })
 
@@ -20,8 +34,16 @@ yargs.command({
 yargs.command({
     command: 'remove',
     describe: 'Remove a note',
-    handler: function () {
-       console.log('Removing the note') 
+    builder:{
+        title:{
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+       notes.removeNote(argv.title)
+       
     }
 })
 
@@ -45,7 +67,9 @@ yargs.command({
     }
 })
 
-console.log(yargs.argv)
+yargs.parse()
+
+//console.log(yargs.argv)
 
 // Get Notes and change colour
 // 
